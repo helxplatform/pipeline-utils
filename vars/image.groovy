@@ -14,10 +14,8 @@ def publish(config) {
         cmd = "crane push image.tar " + tag + "; "
         tagsPushForMasterBranchCmd += cmd
     }
-    sh """
-        echo ${config.branchName}
-        echo ${tagsPushForMasterBranchCmd}
-    """
+    println ${config.branchName}
+    println ${tagsPushForMasterBranchCmd}
     sh """
         echo "Publish stage"
         echo "${config.registryPsw}" | crane auth login -u ${config.registryUser} --password-stdin ${config.registry}

@@ -7,7 +7,6 @@ def build(List<String> destinationsList) {
         newDestination = " --destination " + destination + " "
         destinationsCmdSnippet += newDestination
     }
-    echo "${destinationsCmdSnippet}"
     sh """
         /kaniko/executor --dockerfile ./Dockerfile \
                         --context . \

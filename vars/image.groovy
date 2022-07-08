@@ -1,30 +1,27 @@
 def publish(config) {
-    imageTagsPushAlwaysCmd = ""
-    imageTagsPushForDevelopBranchCmd = ""
-    imageTagsPushForMasterBranchCmd = ""
+    tagsPushAlwaysCmd = ""
+    tagsPushForDevelopBranchCmd = ""
+    tagsPushForMasterBranchCmd = ""
     for (tag in config.imageTagsPushAlways) {
         cmd = "crane push image.tar " + tag + "; "
-        imageTagsPushAlwaysCmd += cmd
+        tagsPushAlwaysCmd += cmd
     }
     for (tag in config.imageTagsPushForDevelopBranch) {
         cmd = "crane push image.tar " + tag + "; "
-        imageTagsPushForDevelopBranchCmd += cmd
+        tagsPushForDevelopBranchCmd += cmd
     }
     for (tag in config.imageTagsPushForMasterBranch) {
         cmd = "crane push image.tar " + tag + "; "
-        imageTagsPushForMasterBranchCmd += cmd
+        tagsPushForMasterBranchCmd += cmd
     }
-    echo ${imageTagsPushAlwaysCmd}
-    echo ${imageTagsPushForDevelopBranchCmd}
-    echo ${imageTagsPushForMasterBranchCmd}
     sh """
         echo "Publish stage"
         echo "${config.registryPsw}" | crane auth login -u ${config.registryUser} --password-stdin ${config.registry}
-        ${imageTagsPushAlwaysCmd}
+        ${tagsPushAlwaysCmd}
         if [ ${config.branchName} == "develop" ]; then
-            ${imageTagsPushForDevelopBranchCmd}
+            ${tagsPushForDevelopBranchCmd}
         elif [ ${config.branchName} == "master" ]; then
-            ${imageTagsPushForMasterBranchCmd}
+            ${tagsPushForMasterBranchCmd}
             if [ $(git tag -l "${config.version}") ]; then
                 error "ERROR: Tag with version ${config.version} already exists! Exiting."
             else

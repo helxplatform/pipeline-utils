@@ -21,7 +21,6 @@ def publish(config) {
         if [ ${config.branchName} == "develop" ]; then
             ${tagsPushForDevelopBranchCmd}
         elif [ ${config.branchName} == "master" ]; then
-            ${tagsPushForMasterBranchCmd}
             if [ $(git tag -l "${config.version}") ]; then
                 error "ERROR: Tag with version ${config.version} already exists! Exiting."
             else

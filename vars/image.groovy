@@ -1,7 +1,7 @@
 def publish(config) {
-    tagsPushAlwaysCmd = ""
-    tagsPushForDevelopBranchCmd = ""
-    tagsPushForMasterBranchCmd = ""
+    String tagsPushAlwaysCmd = ""
+    String tagsPushForDevelopBranchCmd = ""
+    String tagsPushForMasterBranchCmd = ""
     for (tag in config.imageTagsPushAlways) {
         cmd = "crane push image.tar " + tag + "; "
         tagsPushAlwaysCmd += cmd

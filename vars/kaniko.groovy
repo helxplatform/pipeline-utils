@@ -1,7 +1,7 @@
 def build(List<String> destinationsList) {
     echo "Build stage"
 
-    destinationsCmdSnippet = ""
+    String destinationsCmdSnippet = ""
     for (destination in destinationsList) {
         newDestination = " --destination " + destination + " "
         destinationsCmdSnippet += newDestination

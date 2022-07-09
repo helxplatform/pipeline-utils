@@ -33,7 +33,7 @@ def publish(config) {
 
                 # Set the tag
                 SHA=$(git log --oneline | head -1 | awk '{print $1}')
-                git tag ${config.version} ${config.sha}
+                git tag ${config.version} ${config.commitHash}
                 git remote set-url origin ${repoRemoteUrl}
                 git push origin --tags
             fi

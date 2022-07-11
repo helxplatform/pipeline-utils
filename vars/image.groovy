@@ -6,23 +6,23 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
     String tagsPushForMasterBranchCmd = ""
     for (tag in imageTagsPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + ';'
-        tagsPushAlwaysCmd += cmd
+        cmd = "crane push image.tar ${tag}; "
+        tagsToPushAlwaysCmd += cmd
     }
     for (tag in imageTagsPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + ';'
-        tagsPushForDevelopBranchCmd += cmd
+        cmd = "crane push image.tar ${tag}; "
+        tagsToPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + ';'
-        tagsPushForMasterBranchCmd += cmd
+        cmd = "crane push image.tar ${tag}; "
+        tagsToPushForMasterBranchCmd += cmd
     }
     withEnv([
-        "TAGS_PUSH_ALWAYS_CMD=${tagsPushAlwaysCmd}", 
-        "TAGS_PUSH_FOR_DEVELOP_BRANCH_CMD=${tagsPushForDevelopBranchCmd}", 
-        "TAGS_PUSH_FOR_MASTER_BRANCH_CMD=${tagsPushForMasterBranchCmd}"
+        "TAGS_PUSH_ALWAYS_CMD=${tagsToPushAlwaysCmd}", 
+        "TAGS_PUSH_FOR_DEVELOP_BRANCH_CMD=${tagsToPushForDevelopBranchCmd}", 
+        "TAGS_PUSH_FOR_MASTER_BRANCH_CMD=${tagsToPushForMasterBranchCmd}"
     ]) {
         sh '''
             echo "Publish stage"

@@ -6,17 +6,17 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
     String tagsToPushForMasterBranchCmd = ""
     for (tag in imageTagsPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar ${tag}; "
+        cmd = "crane push image.tar ${tag}\; "
         tagsToPushAlwaysCmd += cmd
     }
     for (tag in imageTagsPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar ${tag}; "
+        cmd = "crane push image.tar ${tag}\; "
         tagsToPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar ${tag}; "
+        cmd = "crane push image.tar ${tag}\; "
         tagsToPushForMasterBranchCmd += cmd
     }
     withEnv([

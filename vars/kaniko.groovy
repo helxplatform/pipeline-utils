@@ -9,14 +9,12 @@ def build(List<String> destinationsList) {
         newDestination = " --destination " + destination + " "
         destinationsCmdSnippet += newDestination
     }
-    withEnv(["DESTINATIONS_CMD_SNIPPET=${destinationsCmdSnippet}"]) {
-        sh '''
-            /kaniko/executor --dockerfile ./Dockerfile \
-                            --context . \
-                            --verbosity debug \
-                            --no-push \
-                            $DESTINATIONS_CMD_SNIPPET \
-                            --tarPath image.tar
-        '''
-    }
+    sh """
+        /kaniko/executor --dockerfile ./Dockerfile \
+                        --context . \
+                        --verbosity debug \
+                        --no-push \
+                        ${destinationsCmdSnippet} \
+                        --tarPath image.tar
+    """
 }

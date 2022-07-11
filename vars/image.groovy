@@ -52,7 +52,7 @@ def publish(config) {
 
 def containsIllegalCharacter(String input) {
     if (destination.contains(';') || destination.contains('&')) {
-        print "Build push destination string contains either ';' or '&', which is not allowed. Exiting..."
+        print "Build push destination string contains either ';' or '&', which is not allowed. Exiting without publishing..."
         return true
     } else {
         return false

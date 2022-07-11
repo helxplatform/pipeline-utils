@@ -1,9 +1,9 @@
 import jenkins.StaticUtils
 
 def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageTagsPushForMasterBranch = []) {
-    String tagsToPushAlwaysCmd = ""
-    String tagsToPushForDevelopBranchCmd = ""
-    String tagsToPushForMasterBranchCmd = ""
+    String tagsToPushAlwaysCmd = ''
+    String tagsToPushForDevelopBranchCmd = ''
+    String tagsToPushForMasterBranchCmd = ''
     for (tag in imageTagsPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
         cmd = 'crane push image.tar ' + tag + '''; '''

@@ -6,17 +6,17 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
     String tagsToPushForMasterBranchCmd = ''
     for (tag in imageTagsPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + '''; '''
+        cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushAlwaysCmd += cmd
     }
     for (tag in imageTagsPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + '''; '''
+        cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        cmd = 'crane push image.tar ' + tag + '''; '''
+        cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForMasterBranchCmd += cmd
     }
     withEnv([
@@ -27,11 +27,11 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
         sh '''
             echo "Publish stage"
             echo "$DOCKERHUB_CREDS_PSW" | crane auth login -u $DOCKERHUB_CREDS_USR --password-stdin $REGISTRY
-            $TAGS_PUSH_ALWAYS_CMD
+            eval echo $TAGS_PUSH_ALWAYS_CMD
             if [ $BRANCH_NAME == "develop" ]; then
-                $TAGS_PUSH_FOR_DEVELOP_BRANCH_CMD
+                eval echo $TAGS_PUSH_FOR_DEVELOP_BRANCH_CMD
             elif [ $BRANCH_NAME == "master" ]; then
-                $TAGS_PUSH_FOR_MASTER_BRANCH_CMD
+                eval echo $TAGS_PUSH_FOR_MASTER_BRANCH_CMD
                 if [ $(git tag -l "$VERSION") ]; then
                     error "ERROR: Tag with version $VERSION already exists! Exiting."
                 else

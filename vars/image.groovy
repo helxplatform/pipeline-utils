@@ -51,7 +51,7 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
 }
 
 def containsIllegalCharacter(String input) {
-    if (destination.contains(';') || destination.contains('&')) {
+    if (input.contains(';') || input.contains('&')) {
         print "Build push destination string contains either ';' or '&', which is not allowed. Exiting without publishing..."
         return true
     } else {

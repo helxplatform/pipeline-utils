@@ -22,11 +22,11 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
     sh """
         echo "Publish stage"
         echo "\$DOCKERHUB_CREDS_PSW" | crane auth login -u \$DOCKERHUB_CREDS_USR --password-stdin \$REGISTRY
-        ${tagsToPushAlwaysCmd}
+        $tagsToPushAlwaysCmd
         if [ \$BRANCH_NAME == "develop" ]; then
-            ${tagsToPushForDevelopBranchCmd}
+            $tagsToPushForDevelopBranchCmd
         elif [ \$BRANCH_NAME == "master" ]; then
-            ${tagsToPushForMasterBranchCmd}
+            $tagsToPushForMasterBranchCmd
             if [ $(git tag -l "\$VERSION") ]; then
                 error "ERROR: Tag with version \$VERSION already exists! Exiting."
             else

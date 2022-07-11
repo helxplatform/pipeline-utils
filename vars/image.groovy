@@ -1,20 +1,22 @@
+import jenkins.StaticUtils
+
 def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageTagsPushForMasterBranch = []) {
     String tagsPushAlwaysCmd = ""
     String tagsPushForDevelopBranchCmd = ""
     String tagsPushForMasterBranchCmd = ""
     for (tag in imageTagsPushAlways) {
-        if (containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar " + tag + "; "
+        if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        cmd = "crane push image.tar " + tag + " ; "
         tagsPushAlwaysCmd += cmd
     }
     for (tag in imageTagsPushForDevelopBranch) {
-        if (containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar " + tag + "; "
+        if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        cmd = "crane push image.tar " + tag + " ; "
         tagsPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsPushForMasterBranch) {
-        if (containsIllegalCharacter(tag)) { return }
-        cmd = "crane push image.tar " + tag + "; "
+        if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        cmd = "crane push image.tar " + tag + " ; "
         tagsPushForMasterBranchCmd += cmd
     }
     withEnv([
@@ -47,14 +49,5 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
                 fi
             fi
         '''
-    }
-}
-
-def containsIllegalCharacter(String input) {
-    if (input.contains(';') || input.contains('&')) {
-        print "Build push destination string contains either ';' or '&', which is not allowed. Exiting without publishing..."
-        return true
-    } else {
-        return false
     }
 }

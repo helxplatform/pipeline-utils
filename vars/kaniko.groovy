@@ -1,12 +1,11 @@
+import jenkins.StaticUtils
+
 def build(List<String> destinationsList) {
     echo "Build stage"
 
     String destinationsCmdSnippet = ""
     for (destination in destinationsList) {
-        if (destination.contains(';') || destination.contains('&')) {
-            print "Build push destination string contains either ';' or '&', which is not allowed. Exiting..."
-            return
-        }
+        if (StaticUtils.containsIllegalCharacter(destination)) { return }
         newDestination = " --destination " + destination + " "
         destinationsCmdSnippet += newDestination
     }

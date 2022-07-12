@@ -19,6 +19,11 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForMasterBranchCmd += cmd
     }
+    // Using string interpolation is fine for plaintext variables, but never
+    // use it for secrets. Those secrets can be unwittingly logged to the 
+    // console. See here for more: 
+    // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#injection-via-interpolation
+    // Also, make sure to escape the $ on any new shell environment variable used here.
     sh """
         echo "Publish stage"
         echo "\$DOCKERHUB_CREDS_PSW" | crane auth login -u \$DOCKERHUB_CREDS_USR --password-stdin \$REGISTRY

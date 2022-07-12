@@ -9,14 +9,16 @@ def build(List<String> destinationsList) {
         newDestination = " --destination " + destination + " "
         destinationsCmdSnippet += newDestination
     }
-    withEnv(["DESTINATIONS_CMD_SNIPPET=${destinationsCmdSnippet}"]) {
-        sh '''
-            /kaniko/executor --dockerfile ./Dockerfile \
-                            --context . \
-                            --verbosity debug \
-                            --no-push \
-                            $DESTINATIONS_CMD_SNIPPET \
-                            --tarPath image.tar
-        '''
-    }
+    // Using string interpolation is fine for plaintext variables, but never
+    // use it for secrets. Those secrets can be unwittingly logged to the 
+    // console. See here for more: 
+    // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#injection-via-interpolation
+    sh """
+        /kaniko/executor --dockerfile ./Dockerfile \
+                        --context . \
+                        --verbosity debug \
+                        --no-push \
+                        $destinationsCmdSnippet \
+                        --tarPath image.tar
+    """
 }

@@ -27,7 +27,7 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
             $tagsToPushForDevelopBranchCmd
         elif [ \$BRANCH_NAME == "master" ]; then
             $tagsToPushForMasterBranchCmd
-            if [ $(git tag -l "\$VERSION") ]; then
+            if [ \$(git tag -l "\$VERSION") ]; then
                 error "ERROR: Tag with version \$VERSION already exists! Exiting."
             else
                 # Recover some things we've lost since the build stage:

@@ -37,7 +37,7 @@ def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageT
                 git checkout \$BRANCH_NAME
 
                 # Set the tag
-                SHA=$(git log --oneline | head -1 | awk '{print \$1}')
+                SHA=\$(git log --oneline | head -1 | awk '{print \$1}')
                 git tag \$VERSION \$COMMIT_HASH
                 git remote set-url origin \$REPO_REMOTE_URL
                 git push origin --tags

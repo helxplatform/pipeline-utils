@@ -1,7 +1,9 @@
 import jenkins.StaticUtils
 
-def build(List<String> destinationsList) {
+def build(String pathToDockerfile, List<String> destinationsList) {
     echo "Build stage"
+
+    if (StaticUtils.containsIllegalCharacter(pathToDockerfile)) { return }
 
     String destinationsCmdSnippet = ""
     for (destination in destinationsList) {
@@ -14,7 +16,7 @@ def build(List<String> destinationsList) {
     // console. See here for more: 
     // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#injection-via-interpolation
     sh """
-        /kaniko/executor --dockerfile ./Dockerfile \
+        /kaniko/executor --dockerfile $pathToDockerfile \
                         --context . \
                         --verbosity debug \
                         --no-push \

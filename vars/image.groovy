@@ -6,19 +6,19 @@ def publish(imageTagsToPushAlways = [], imageTagsToPushForDevelopBranch = [], im
     String tagsToPushForMasterBranchCmd = ''
     for (tag in imageTagsToPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        tag = StaticUtils.transformSlashToDash(tag)
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushAlwaysCmd += cmd
     }
     for (tag in imageTagsToPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        tag = StaticUtils.transformSlashToDash(tag)
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsToPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
-        tag = StaticUtils.transformSlashToDash(tag)
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForMasterBranchCmd += cmd
     }

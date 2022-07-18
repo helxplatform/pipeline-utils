@@ -11,10 +11,10 @@ class StaticUtils implements Serializable {
         }
     }
 
-    static transformSlashToDash(String input) {
+    static transformSlashToUnderscore(String input) {
         if (input.contains('/')) {
-            sh "echo 'A tag contained a non-supported character. Transforming it to a dash...'"
-            return input.replaceAll("/", "-")
+            sh "echo 'A tag contained a non-supported character, such as a slash. Transforming it to an underscore...'"
+            return input.replaceAll("/", "_")
         } else {
             return input
         }

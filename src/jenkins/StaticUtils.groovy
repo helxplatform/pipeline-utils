@@ -13,8 +13,8 @@ class StaticUtils implements Serializable {
 
     static transformSlashToUnderscore(String input) {
         if (input.contains('/')) {
-            sh "echo 'A tag contained a non-supported character, such as a slash. Transforming it to an underscore...'"
-            return input.replaceAll("/", "_")
+            sh "echo 'A tag contained a slash. Transforming it to an underscore...'"
+            return input.replaceAll('\\/', '_')
         } else {
             return input
         }

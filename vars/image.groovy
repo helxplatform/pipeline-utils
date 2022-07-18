@@ -1,21 +1,24 @@
 import jenkins.StaticUtils
 
-def publish(imageTagsPushAlways = [], imageTagsPushForDevelopBranch = [], imageTagsPushForMasterBranch = []) {
+def publish(imageTagsToPushAlways = [], imageTagsToPushForDevelopBranch = [], imageTagsToPushForMasterBranch = []) {
     String tagsToPushAlwaysCmd = ''
     String tagsToPushForDevelopBranchCmd = ''
     String tagsToPushForMasterBranchCmd = ''
-    for (tag in imageTagsPushAlways) {
+    for (tag in imageTagsToPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushAlwaysCmd += cmd
     }
-    for (tag in imageTagsPushForDevelopBranch) {
+    for (tag in imageTagsToPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForDevelopBranchCmd += cmd
     }
-    for (tag in imageTagsPushForMasterBranch) {
+    for (tag in imageTagsToPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
+        tag = StaticUtils.transformSlashToUnderscore(tag)
         cmd = 'crane push image.tar ' + tag + '; '
         tagsToPushForMasterBranchCmd += cmd
     }

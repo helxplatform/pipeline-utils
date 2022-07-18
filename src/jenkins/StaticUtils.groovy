@@ -3,22 +3,19 @@ package jenkins
 class StaticUtils implements Serializable {
 
     static boolean containsIllegalCharacter(String input) {
-        if (input.contains(';') || input.contains('&')) {
-            sh "echo 'An input string contains either ';' or '&', which is not allowed. Exiting...'"
-            return true
-        } else {
-            return false
-        }
+        return (input.contains(';') || input.contains('&'))
     }
 
-    static transformSlashToUnderscore(String input) {
-        if (input.contains('/')) {
-            sh "echo 'A tag contained a non-supported character, such as a slash. Transforming it to an underscore...'"
-            return input.replaceAll("/", "_")
+    static String transformSlashToUnderscoreInTag(String input) {
+        int indexOfColon = input.indexOf(':')
+        if (indexOfColon != -1) {
+            String[] substrings = input.split(':')
+            int numberOfSubstrings = substrings.length
+            substrings[numberOfSubstrings - 1] = substrings.last().replaceAll('\\/', '_')
+            return String.join(":", substrings)
         } else {
             return input
         }
-        
     }
 
 }

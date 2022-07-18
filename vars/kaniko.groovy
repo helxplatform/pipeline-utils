@@ -8,7 +8,7 @@ def build(String pathToDockerfile, List<String> destinationsList) {
     String destinationsCmdSnippet = ""
     for (destination in destinationsList) {
         if (StaticUtils.containsIllegalCharacter(destination)) { return }
-        destination = StaticUtils.transformSlashToUnderscore(destination)
+        destination = StaticUtils.transformSlashToUnderscoreInTag(destination)
         singleDestinationCmdSnippet = " --destination " + destination + " "
         destinationsCmdSnippet += singleDestinationCmdSnippet
     }

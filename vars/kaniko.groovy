@@ -8,8 +8,9 @@ def build(String pathToDockerfile, List<String> destinationsList) {
     String destinationsCmdSnippet = ""
     for (destination in destinationsList) {
         if (StaticUtils.containsIllegalCharacter(destination)) { return }
-        newDestination = " --destination " + destination + " "
-        destinationsCmdSnippet += newDestination
+        destination = StaticUtils.transformSlashToUnderscore(destination)
+        singleDestinationCmdSnippet = " --destination " + destination + " "
+        destinationsCmdSnippet += singleDestinationCmdSnippet
     }
     // Using string interpolation is fine for plaintext variables, but never
     // use it for secrets. Those secrets can be unwittingly logged to the 

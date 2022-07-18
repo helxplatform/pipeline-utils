@@ -12,7 +12,13 @@ class StaticUtils implements Serializable {
     }
 
     static transformSlashToDash(String input) {
-        return input.replaceAll("/", "-")
+        if (input.contains('/')) {
+            sh "echo 'A tag contained a non-supported character. Transforming it to a dash...'"
+            return input.replaceAll("/", "-")
+        } else {
+            return input
+        }
+        
     }
 
 }

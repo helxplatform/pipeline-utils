@@ -10,7 +10,7 @@ class StaticUtils implements Serializable {
         int indexOfColon = input.indexOf(':')
         if (indexOfColon != -1) {
             String[] substrings = input.split(':')
-            int numberOfSubstrings = substrings.length()
+            int numberOfSubstrings = substrings.length
             substrings[numberOfSubstrings - 1] = substrings.last().replaceAll('\\/', '_')
             return String.join(":", substrings)
         } else {

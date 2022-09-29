@@ -1,5 +1,5 @@
-def ccv(gitCredsUsr, gitCredsPsw) {
-    withEnv(["GIT_CREDS_USR=gitCredsUsr", "GIT_CREDS_PSW=gitCredsPsw"]) {
+def ccv(githubToken) {
+    withEnv(["GITHUB_TOKEN=githubToken"]) {
         sh '''
         git clone https://github.com/helxplatform/helx-ui.git
         cd helx-ui/
@@ -9,7 +9,7 @@ def ccv(gitCredsUsr, gitCredsPsw) {
         if [ -z $(git tag -l $(ccv)) ]; then
             git tag $(ccv)
             git tag   # testing
-            git remote set origin https://${GIT_CREDS_USR}:${GIT_CREDS_PSW}@github.com/helxplatform/helx-ui.git
+            git remote set origin https://${GITHUB_TOKEN}@github.com/helxplatform/helx-ui.git
             # git push --tags
             # git push origin --tags
         fi

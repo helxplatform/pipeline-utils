@@ -1,6 +1,7 @@
 def ccv(String repoRemoteUrl, String repoName) {
     withEnv(["REPO_REMOTE_URL=repoRemoteUrl", "REPO_NAME=repoName"]) {
         sh '''
+        echo ${REPO_NAME}
         git clone ${REPO_REMOTE_URL}
         cd ${REPO_NAME}
         go install github.com/smlx/ccv@v0.3.2

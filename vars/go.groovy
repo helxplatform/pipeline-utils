@@ -1,4 +1,4 @@
-def ccv(repoRemoteUrl, repoName) {
+def ccv(String repoRemoteUrl, String repoName) {
     withEnv(["REPO_REMOTE_URL=repoRemoteUrl", "REPO_NAME=repoName"]) {
         sh '''
         git clone ${REPO_REMOTE_URL}

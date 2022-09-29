@@ -1,15 +1,15 @@
-def ccv(githubToken) {
-    withEnv(["GITHUB_TOKEN=githubToken"]) {
+def ccv(repoRemoteUrl, repoName) {
+    withEnv(["REPO_REMOTE_URL=repoRemoteUrl", "REPO_NAME=repoName"]) {
         sh '''
-        git clone https://github.com/helxplatform/helx-ui.git
-        cd helx-ui/
+        git clone ${REPO_REMOTE_URL}
+        cd ${REPO_NAME}
         go install github.com/smlx/ccv@v0.3.2
         cat <<EOF > ccv.sh
         #!/bin/bash
         if [ -z $(git tag -l $(ccv)) ]; then
             git tag $(ccv)
             git tag   # testing
-            git remote set origin https://${GITHUB_TOKEN}@github.com/helxplatform/helx-ui.git
+            git remote set origin ${REPO_REMOTE_URL}
             # git push --tags
             # git push origin --tags
         fi

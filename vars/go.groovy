@@ -1,6 +1,6 @@
 def ccv(String repoRemoteUrl, String repoName) {
     withEnv(["REPO_REMOTE_URL=${repoRemoteUrl}", "REPO_NAME=${repoName}"]) {
-        return sh(returnStdout: true, script: '
+        return sh(returnStdout: true, script: '''
             git clone ${REPO_REMOTE_URL}; \
             cd ${REPO_NAME}; \
             /usr/local/go/bin/go install github.com/smlx/ccv@v0.3.2 > /dev/null 2>&1; \
@@ -11,6 +11,6 @@ def ccv(String repoRemoteUrl, String repoName) {
                 git push origin --tags > /dev/null 2>&1; \
             fi \
             echo $TAG \
-        ')
+        ''')
     }
 }

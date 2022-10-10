@@ -8,7 +8,6 @@ def ccv(String repoRemoteUrl, String repoName) {
             TAG=$(/go/bin/ccv)
             if [ -z $(git tag -l $TAG) ]; then
                 git tag $TAG > /dev/null
-                git remote add origin ${REPO_REMOTE_URL}
                 git push origin --tags > /dev/null
             fi
             echo $TAG

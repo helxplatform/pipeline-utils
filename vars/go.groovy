@@ -5,7 +5,7 @@ def ccv(String repoRemoteUrl, String repoName) {
             cd ${REPO_NAME}
             /usr/local/go/bin/go install github.com/smlx/ccv@v0.3.2 > /dev/null 2>&1
             TAG=$(/go/bin/ccv)
-            if [ -z $(git tag -l $TAG)]; then
+            if [ -z $(git tag -l $TAG) ]; then
                 git tag $TAG > /dev/null
                 git remote set origin ${REPO_REMOTE_URL}
                 git push origin --tags > /dev/null

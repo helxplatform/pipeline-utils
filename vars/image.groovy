@@ -7,21 +7,24 @@ def publish2(imageTagsToPushAlways = [], imageTagsToPushForDevelopBranch = [], i
     for (tag in imageTagsToPushAlways) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
         tag = StaticUtils.transformSlashToUnderscoreInTag(tag)
-        cmd = 'crane push image.tar ' + tag + '; '
+        cmd = 'crane push image.tar ' + tag + ';'
         tagsToPushAlwaysCmd += cmd
     }
     for (tag in imageTagsToPushForDevelopBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
         tag = StaticUtils.transformSlashToUnderscoreInTag(tag)
-        cmd = 'crane push image.tar ' + tag + '; '
+        cmd = 'crane push image.tar ' + tag + ';'
         tagsToPushForDevelopBranchCmd += cmd
     }
     for (tag in imageTagsToPushForMasterBranch) {
         if (StaticUtils.containsIllegalCharacter(tag)) { return }
         tag = StaticUtils.transformSlashToUnderscoreInTag(tag)
-        cmd = 'crane push image.tar ' + tag + '; '
+        cmd = 'crane push image.tar ' + tag + ';'
         tagsToPushForMasterBranchCmd += cmd
     }
+    tagsToPushAlwaysCmd = tagsToPushAlwaysCmd.substring(0, tagsToPushAlwaysCmd.length() - 1)
+    tagsToPushForDevelopBranchCmd = tagsToPushForDevelopBranchCmd.substring(0, tagsToPushForDevelopBranchCmd.length() - 1)
+    tagsToPushForMasterBranchCmd = tagsToPushForMasterBranchCmd.substring(0, tagsToPushForMasterBranchCmd.length() - 1)
     // Using string interpolation is fine for plaintext variables, but never
     // use it for secrets. Those secrets can be unwittingly logged to the 
     // console. See here for more: 

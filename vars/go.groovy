@@ -1,10 +1,13 @@
 /*
 Runs the CCV utility against the master branch and pushes any new tags.
-Note: Requires REPO_REMOTE_URL and REPO_NAME to be environment variables
  */
-def ccv() {
+def ccv(String githubCredsPsw, String repoName) {
+    environment {
+        GITHUB_CREDS_PSW = githubCredsPsw
+        REPO_NAME = repoName
+    }
     return sh(returnStdout: true, script: '''
-        git clone ${REPO_REMOTE_URL}
+        git clone https://${GITHUB_CREDS_PSW}@github.com/helxplatform/${REPO_NAME}.git
         cd ${REPO_NAME}
         git switch master
         /usr/local/go/bin/go install github.com/smlx/ccv@v0.3.2 > /dev/null 2>&1

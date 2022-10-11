@@ -4,14 +4,14 @@ Note: Requires REPO_REMOTE_URL and REPO_NAME to be environment variables
  */
 def ccv() {
     return sh(returnStdout: true, script: '''
-        git clone https://${GITHUB_CREDS_PSW}@github.com/helxplatform/${REPO_NAME}.git
+        git clone https://${GITHUB_CREDS_PSW}@github.com/helxplatform/${REPO_NAME}.git > /dev/null
         cd ${REPO_NAME}
-        git switch master
+        git switch master > /dev/null
         /usr/local/go/bin/go install github.com/smlx/ccv@v0.3.2 > /dev/null 2>&1
         TAG=$(/go/bin/ccv)
         if [ -z $(git tag -l $TAG) ]; then
-            git tag $TAG
-            git push origin --tags
+            git tag $TAG > /dev/null
+            git push origin --tags > /dev/null
         fi
         echo $TAG
     ''')

@@ -1,11 +1,8 @@
 /*
 Runs the CCV utility against the master branch and pushes any new tags.
+Note: Requires REPO_REMOTE_URL and REPO_NAME to be environment variables
  */
-def ccv(String githubCredsPsw, String repoName) {
-    environment {
-        GITHUB_CREDS_PSW = githubCredsPsw
-        REPO_NAME = repoName
-    }
+def ccv() {
     return sh(returnStdout: true, script: '''
         git clone https://${GITHUB_CREDS_PSW}@github.com/helxplatform/${REPO_NAME}.git
         cd ${REPO_NAME}

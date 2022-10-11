@@ -1,5 +1,8 @@
 import jenkins.StaticUtils
 
+/*
+Pushes image tags that have already been built.
+ */
 def publish2(imageTagsToPushAlways = [], imageTagsToPushForDevelopBranch = [], imageTagsToPushForMasterBranch = []) {
     String tagsToPushAlwaysCmd = ''
     String tagsToPushForDevelopBranchCmd = ''

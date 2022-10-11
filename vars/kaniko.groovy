@@ -1,5 +1,8 @@
 import jenkins.StaticUtils
 
+/*
+Builds a kaniko image, given a path to a dockerfile and a list of image tags to use as destinations.
+ */
 def build(String pathToDockerfile, List<String> destinationsList) {
     echo "Build stage"
 

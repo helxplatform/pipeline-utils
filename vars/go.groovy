@@ -13,6 +13,6 @@ def ccv() {
             git tag $TAG > /dev/null
             git push origin --tags > /dev/null
         fi
-        echo $TAG
+        echo -n $TAG
     ''')
 }

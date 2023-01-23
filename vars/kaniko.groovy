@@ -22,7 +22,6 @@ def build(String pathToDockerfile, List<String> destinationsList) {
     sh """
         /kaniko/executor --dockerfile $pathToDockerfile \
                         --context . \
-                        --verbosity debug \
                         --no-push \
                         $destinationsCmdSnippet \
                         --tarPath image.tar
@@ -51,7 +50,7 @@ def buildAndPush(String pathToDockerfile, List<String> destinationsList) {
     sh """
         /kaniko/executor --dockerfile $pathToDockerfile \
                         --context . \
-                        --verbosity debug \
+                        --use-new-run \
                         $destinationsCmdSnippet
     """
 }

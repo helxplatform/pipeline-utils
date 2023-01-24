@@ -3,7 +3,7 @@ import jenkins.StaticUtils
 /*
 Builds a kaniko image, given a path to a dockerfile and a list of image tags to use as destinations.
  */
-def build(String pathToDockerfile, List<String> destinationsList) {
+def build(String pathToDockerfile, List<String> destinationsList, boolean debug = False) {
     echo "Build stage"
 
     if (StaticUtils.containsIllegalCharacter(pathToDockerfile)) { return }
@@ -15,6 +15,7 @@ def build(String pathToDockerfile, List<String> destinationsList) {
         singleDestinationCmdSnippet = " --destination " + destination + " "
         destinationsCmdSnippet += singleDestinationCmdSnippet
     }
+    String verbosityCmdSnippet = debug ? "--verbosity=debug" : ""
     // Using string interpolation is fine for plaintext variables, but never
     // use it for secrets. Those secrets can be unwittingly logged to the 
     // console. See here for more: 
@@ -23,6 +24,7 @@ def build(String pathToDockerfile, List<String> destinationsList) {
         /kaniko/executor --dockerfile $pathToDockerfile \
                         --context . \
                         --no-push \
+                        $verbosityCmdSnippet \
                         $destinationsCmdSnippet \
                         --tarPath image.tar
     """
@@ -31,7 +33,7 @@ def build(String pathToDockerfile, List<String> destinationsList) {
 /*
 Builds a kaniko image and pushes it to harbor, given a path to a dockerfile and a list of image tags to use as destinations.
  */
-def buildAndPush(String pathToDockerfile, List<String> destinationsList) {
+def buildAndPush(String pathToDockerfile, List<String> destinationsList, boolean debug = False) {
     echo "Build stage"
 
     if (StaticUtils.containsIllegalCharacter(pathToDockerfile)) { return }
@@ -43,6 +45,7 @@ def buildAndPush(String pathToDockerfile, List<String> destinationsList) {
         singleDestinationCmdSnippet = " --destination " + destination + " "
         destinationsCmdSnippet += singleDestinationCmdSnippet
     }
+    String verbosityCmdSnippet = debug ? "--verbosity=debug" : ""
     // Using string interpolation is fine for plaintext variables, but never
     // use it for secrets. Those secrets can be unwittingly logged to the 
     // console. See here for more: 
@@ -51,6 +54,7 @@ def buildAndPush(String pathToDockerfile, List<String> destinationsList) {
         /kaniko/executor --dockerfile $pathToDockerfile \
                         --context . \
                         --use-new-run \
+                        $verbosityCmdSnippet \
                         $destinationsCmdSnippet
     """
 }

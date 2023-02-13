@@ -8,7 +8,7 @@ def ccv() {
         cd temp
         git clone https://${GITHUB_CREDS_PSW}@github.com/helxplatform/${REPO_NAME}.git > /dev/null
         cd ${REPO_NAME}
-        git switch main > /dev/null
+        git switch ${BRANCH_NAME} > /dev/null
         if [ $? != 0 ]  ; then
             echo "ccv(): ERROR: Unable to switch to branch ${BRANCH_NAME} to set ccv, exiting.";
             exit;

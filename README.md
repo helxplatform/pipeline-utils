@@ -1,3 +1,5 @@
+![maintenance-status](https://img.shields.io/badge/maintenance-deprecated-red.svg)
+
 # Pipeline Utils
 
 This is a shared Jenkins pipeline library that is loaded implicitly in our Jenkins instance. It allows any Jenkinsfile to make calls to methods that can do things like initiate a kaniko build or push an image with certain tags to our registry. It significantly reduces the code needed to craft a Jenkinsfile and allows easy changes to all repositories that use it by simply changing the library's implementation of its tasks. 
